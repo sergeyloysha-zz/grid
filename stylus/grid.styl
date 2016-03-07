@@ -1,0 +1,187 @@
+percentage($decimal)
+  ( $decimal * 100 ) %
+
+$grid-namespace = "grid"
+$column-namespace = "col"
+$col-groups = 2, 3, 4, 5, 6, 8, 12
+$gutter-width = 20px
+$breakpoint-medium = 700px
+$breakpoint-small = 480px
+$pushes = true
+$pulls = true
+
+.{$grid-namespace}
+  list-style: none
+  margin-left: -1 * $gutter-width
+$span-all
+  width: percentage(1 / 1)
+$one-half
+  width: percentage(1 / 2)
+$one-third
+  width: percentage(1 / 3)
+$two-thirds
+  width: percentage(2 / 3)
+$one-quarter
+  width: percentage(1 / 4)
+$two-quarters
+  width: percentage(2 / 4)
+$three-quarters
+  width: percentage(3 / 4)
+$push-span-all
+  margin-left: percentage(1 / 1)
+$push-one-half
+  margin-left: percentage(1 / 2)
+$push-one-third
+  margin-left: percentage(1 / 3)
+$push-two-thirds
+  margin-left: percentage(2 / 3)
+$push-one-quarter
+  margin-left: percentage(1 / 4)
+$push-two-quarters
+  margin-left: percentage(2 / 4)
+$push-three-quarters
+  margin-left: percentage(3 / 4)
+$pull-span-all
+  margin-left: -(percentage(1/1))
+$pull-one-half
+  margin-left: -(percentage(1/2))
+$pull-one-third
+  margin-left: -(percentage(1/3))
+$pull-two-thirds
+  margin-left: -(percentage(2/3))
+$pull-one-quarter
+  margin-left: -(percentage(1/4))
+$pull-two-quarters
+  margin-left: -(percentage(2/4))
+$pull-three-quarters
+  margin-left: -(percentage(3/4))
+
+for $group in $col-groups
+  for $i in (1)..($group)
+    .{$column-namespace}--{$i}-{$group}
+      if percentage($i / $group) == percentage(1 / 1)
+        @extend $span-all
+      else if percentage($i / $group) == percentage(1 / 2)
+        @extend $one-half
+      else if percentage($i / $group) == percentage(1 / 3)
+        @extend $one-third
+      else if percentage($i / $group) == percentage(2 / 3)
+        @extend $two-thirds
+      else if percentage($i / $group) == percentage(1 / 4)
+        @extend $one-quarter
+      else if percentage($i / $group) == percentage(2 / 4)
+        @extend $two-quarters
+      else if percentage($i / $group) == percentage(3 / 4)
+        @extend $three-quarters
+      else
+        width: percentage($i / $group)
+    if $pushes
+      .{$column-namespace}--push-{$i}-{$group}
+        if percentage($i / $group) == percentage(1 / 1)
+          @extend $push-span-all
+        else if percentage($i / $group) == percentage(1 / 2)
+          @extend $push-one-half
+        else if percentage($i / $group) == percentage(1 / 3)
+          @extend $push-one-third
+        else if percentage($i / $group) == percentage(2 / 3)
+          @extend $push-two-thirds
+        else if percentage($i / $group) == percentage(1 / 4)
+          @extend $push-one-quarter
+        else if percentage($i / $group) == percentage(2 / 4)
+          @extend $push-two-quarters
+        else if percentage($i / $group) == percentage(3 / 4)
+          @extend $push-three-quarters
+        else
+          margin-left: percentage($i / $group)
+
+    if $pulls
+      .{$column-namespace}--pull-{$i}-{$group}
+        if percentage($i / $group) == percentage(1 / 1)
+          @extend $pull-span-all
+        else if percentage($i / $group) == percentage(1 / 2)
+          @extend $pull-one-half
+        else if percentage($i / $group) == percentage(1 / 3)
+          @extend $pull-one-third
+        else if percentage($i / $group) == percentage(2 / 3)
+          @extend $pull-two-thirds
+        else if percentage($i / $group) == percentage(1 / 4)
+          @extend $pull-one-quarter
+        else if percentage($i / $group) == percentage(2 / 4)
+          @extend $pull-two-quarters
+        else if percentage($i / $group) == percentage(3 / 4)
+          @extend $pull-three-quarters
+        else
+          margin-left: percentage($i/$group)
+
+.{$column-namespace}
+  box-sizing: border-box
+  display: inline-block
+  margin-right: -.25em
+  min-height: 1px
+  padding-left: $gutter-width
+  vertical-align: top
+  
+  @media (max-width: $breakpoint-medium)
+    display: block
+    margin-left: 0
+    margin-right: 0
+    width: auto
+    
+  @media (max-width: $breakpoint-medium) and (min-width: $breakpoint-small)
+    &[class*="{$column-namespace}--m-"]
+      display: inline-block
+      margin-right: -.24em
+    &.{$column-namespace}--m-1-2
+      width: percentage(1 / 2)
+    &.{$column-namespace}--m-1-3
+      width: percentage(1 / 3)
+    &.{$column-namespace}--m-2-3
+      width: percentage(2 / 3)
+    &.{$column-namespace}--m-1-4
+      width: percentage(1 / 4)
+    &.{$column-namespace}--m-2-4
+      width: percentage(1 / 2)
+    &.{$column-namespace}--m-3-4
+      width: percentage(3 / 4)
+  @media (max-width: $breakpoint-small)
+    &[class*="{$column-namespace}--s-"]
+      display: inline-block
+      margin-right: -.24em
+    &.{$column-namespace}--s-1-of-2
+      width: percentage(1 / 2)
+    &.{$column-namespace}--s-1-of-3
+      width: percentage(1 / 3)
+    &.{$column-namespace}--s-2-of-3
+      width: percentage(2 / 3)
+    &.{$column-namespace}--s-1-of-4
+      width: percentage(1 / 4)
+    &.{$column-namespace}--s-2-of-4
+      width: percentage(1 / 2)
+    &.{$column-namespace}--s-3-of-4
+      width: percentage(3 / 4)
+
+.{$column-namespace}--centered
+  display: block
+  margin-left: auto
+  margin-right: auto
+
+.{$grid-column-namespace}--d-first
+  float: left
+
+.{$grid-column-namespace}--d-last
+  float: right
+
+.{$grid-namespace}--no-gutter
+  margin-left: 0
+  width: 100%
+  .{$column-namespace}
+    padding-left: 0
+  .{$column-namespace}--span-all
+    margin-left: 0
+    width: 100%
+
+.{$column-namespace}--ab
+  vertical-align: bottom
+
+.{$column-namespace}--am
+  vertical-align: middle
